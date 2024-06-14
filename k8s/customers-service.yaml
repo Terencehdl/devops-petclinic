@@ -9,19 +9,6 @@ spec:
     - name: customers-service
       image: springcommunity/spring-petclinic-customers-service
       imagePullPolicy: Always
-      env:
-      - name: SPRING_PROFILES_ACTIVE
-        value: docker,mysql
-      - name: spring.jpa.properties.hibernate.dialect
-        value: org.hibernate.dialect.MySQLDialect
-      - name: spring.jpa.hibernate.ddl-auto
-        value: update
-      - name: spring.datasource.url
-        value: jdbc:mysql://localhost:3306/petclinic?useSSL=false
-      - name: spring.datasource.username
-        value: root
-      - name: spring.datasource.password
-        value: petclinic
       ports:
         - containerPort: 8081
 
