@@ -1,0 +1,28 @@
+# admin-server.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: vets-service
+  labels:
+    app: {{ .Values.services.vetsService.name }}
+spec:
+  containers:
+    - name: vets-service
+      image: {{ .Values.services.vetsService.image }}
+      imagePullPolicy: Always
+      ports:
+        - containerPort: {{ .Values.services.vetsService.containerPort }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vets-service
+spec:
+  selector:
+    app: vets-service
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: {{ .Values.services.vetsService.containerPort }}
+      targetPort: {{ .Values.services.vetsService.containerPort }}

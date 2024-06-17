@@ -1,0 +1,28 @@
+# config-server.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-server
+  labels:
+    app: {{ .Values.services.configServer.name }}
+spec:
+  containers:
+    - name: config-server
+      image: {{ .Values.services.configServer.image }}
+      imagePullPolicy: Always
+      ports:
+        - containerPort: {{ .Values.services.configServer.containerPort }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server
+spec:
+  selector:
+    app: config-server
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: {{ .Values.services.configServer.containerPort }}
+      targetPort: {{ .Values.services.configServer.containerPort }}

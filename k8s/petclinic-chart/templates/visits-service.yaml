@@ -3,15 +3,14 @@ kind: Pod
 metadata:
   name: visits-service
   labels:
-    app: visits-service
+    app: {{ .Values.services.visitsService.name }}
 spec:
   containers:
     - name: visits-service
-      image: springcommunity/spring-petclinic-visits-service
+      image: {{ .Values.services.visitsService.image }}
       imagePullPolicy: Always
       ports:
-        - containerPort: 8082
-
+        - containerPort: {{ .Values.services.visitsService.containerPort }}
 ---
 apiVersion: v1
 kind: Service
@@ -24,5 +23,5 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 8082
-      targetPort: 8082
+      port: {{ .Values.services.visitsService.containerPort }}
+      targetPort: {{ .Values.services.visitsService.containerPort }}
