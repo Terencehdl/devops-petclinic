@@ -1,17 +1,24 @@
-# discovery-server.yaml
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: discovery-server
-  labels:
-    app: {{ .Values.services.discoveryServer.name }}
 spec:
-  containers:
-    - name: discovery-server
-      image: {{ .Values.services.discoveryServer.image }}
-      imagePullPolicy: Always
-      ports:
-        - containerPort: {{ .Values.services.discoveryServer.containerPort }}
+  replicas: {{ .Values.services.discoveryServer.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.services.discoveryServer.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.discoveryServer.name }}
+    spec:
+      containers:
+        - name: discovery-server
+          image: {{ .Values.services.discoveryServer.image }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.services.discoveryServer.containerPort }}
+
 ---
 apiVersion: v1
 kind: Service

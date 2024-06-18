@@ -8,28 +8,39 @@ services:
     name: api-gateway
     image: springcommunity/spring-petclinic-api-gateway
     containerPort: 8080
+    replicas: 1
 
   configServer:
     name: config-server
     image: springcommunity/spring-petclinic-config-server
     containerPort: 8888
+    replicas: 1
+
 
   customersService:
     name: customers-service
     image: springcommunity/spring-petclinic-customers-service
     containerPort: 8081
+    replicas: 1
+
 
   discoveryServer:
     name: discovery-server
     image: springcommunity/spring-petclinic-discovery-server
     containerPort: 8761
+    replicas: 1
+
 
   vetsService:
     name: vets-service
     image: springcommunity/spring-petclinic-vets-service
     containerPort: 8083
+    replicas: 1
+
 
   visitsService:
     name: visits-service
     image: springcommunity/spring-petclinic-visits-service
     containerPort: 8082
+    replicas: 1
+

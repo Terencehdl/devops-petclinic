@@ -1,17 +1,24 @@
-# customers-service.yaml
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: customers-service
-  labels:
-    app: {{ .Values.services.customersService.name }}
 spec:
-  containers:
-    - name: customers-service
-      image: {{ .Values.services.customersService.image }}
-      imagePullPolicy: Always
-      ports:
-        - containerPort: {{ .Values.services.customersService.containerPort }}
+  replicas: {{ .Values.services.customersService.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.services.customersService.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.customersService.name }}
+    spec:
+      containers:
+        - name: customers-service
+          image: {{ .Values.services.customersService.image }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.services.customersService.containerPort }}
+
 ---
 apiVersion: v1
 kind: Service

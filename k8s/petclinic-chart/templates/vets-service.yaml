@@ -1,17 +1,24 @@
-# admin-server.yaml
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: vets-service
-  labels:
-    app: {{ .Values.services.vetsService.name }}
 spec:
-  containers:
-    - name: vets-service
-      image: {{ .Values.services.vetsService.image }}
-      imagePullPolicy: Always
-      ports:
-        - containerPort: {{ .Values.services.vetsService.containerPort }}
+  replicas: {{ .Values.services.vetsService.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.services.vetsService.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.vetsService.name }}
+    spec:
+      containers:
+        - name: vets-service
+          image: {{ .Values.services.vetsService.image }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.services.vetsService.containerPort }}
+
 ---
 apiVersion: v1
 kind: Service

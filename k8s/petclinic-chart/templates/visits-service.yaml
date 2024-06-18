@@ -1,16 +1,24 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: visits-service
-  labels:
-    app: {{ .Values.services.visitsService.name }}
 spec:
-  containers:
-    - name: visits-service
-      image: {{ .Values.services.visitsService.image }}
-      imagePullPolicy: Always
-      ports:
-        - containerPort: {{ .Values.services.visitsService.containerPort }}
+  replicas: {{ .Values.services.visitsService.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.services.visitsService.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.visitsService.name }}
+    spec:
+      containers:
+        - name: visits-service
+          image: {{ .Values.services.visitsService.image }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.services.visitsService.containerPort }}
+
 ---
 apiVersion: v1
 kind: Service

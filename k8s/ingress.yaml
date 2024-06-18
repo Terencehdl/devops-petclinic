@@ -5,12 +5,12 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-      - http:
-          paths:
-          - path: /api/vet/vets
+    - http:
+        paths:
+          - path: /
             pathType: Prefix
             backend:
               service:
-                name: vets-service
+                name: api-gateway
                 port:
-                  number: 8083
+                  number: 8080

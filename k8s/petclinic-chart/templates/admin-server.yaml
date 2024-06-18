@@ -1,17 +1,24 @@
-# admin-server.yaml
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: admin-server
-  labels:
-    app: {{ .Values.services.adminServer.name }}
 spec:
-  containers:
-    - name: admin-server
-      image: {{ .Values.services.adminServer.image }}
-      imagePullPolicy: Always
-      ports:
-        - containerPort: {{ .Values.services.adminServer.containerPort }}
+  replicas: {{ .Values.services.adminServer.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.services.adminServer.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.adminServer.name }}
+    spec:
+      containers:
+        - name: admin-server
+          image: {{ .Values.services.adminServer.image }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.services.adminServer.containerPort }}
+
 ---
 apiVersion: v1
 kind: Service
