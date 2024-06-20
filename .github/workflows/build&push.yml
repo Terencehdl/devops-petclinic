@@ -45,14 +45,18 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          services=("admin-server" "customers-service" "vets-service" "visits-service" "config-server" "discovery-server" "api-gateway")
+          # Construire les images Docker pour tous les services définis dans le docker-compose.yml
+          docker-compose build
+          
+          services=("config-server" "discovery-server" "customers-service" "visits-service" "vets-service" "api-gateway" "tracing-server" "admin-server" "grafana-server" "prometheus-server")
+          
           for service in "${services[@]}"
           do
-            echo "Building and pushing image for $service"
-            # Build the Docker image for each service
-            docker-compose build $service
-            # Tag the image
-            docker tag $service:latest $ECR_REPOSITORY/$service:${{ github.sha }}
-            # Push the image to ECR
-            docker push $ECR_REPOSITORY/$service:${{ github.sha }}
+            echo "Tagging and pushing image for $service"
+            
+            # Tag l'image
+            docker tag ${service}:latest $ECR_REPOSITORY/${service}:${{ github.sha }}
+            
+            # Pousser l'image vers ECR
+            docker push $ECR_REPOSITORY/${service}:${{ github.sha }}
           done
