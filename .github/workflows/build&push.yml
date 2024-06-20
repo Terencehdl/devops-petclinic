@@ -46,13 +46,12 @@ jobs:
       - name: Build and push Docker images
         env:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-          IMAGE_TAG: devops-petclinic
+          IMAGE_TAG: latest  # Adjust the tag as per your requirement
         run: |
           services=("config-server" "discovery-server" "customers-service" "visits-service" "vets-service" "api-gateway" "tracing-server" "admin-server" "grafana-server" "prometheus-server")
           for service in "${services[@]}"
           do
             echo "Building and pushing image for $service"
-            docker-compose build -t $service:latest
-            docker-compose images
-            docker push $ECR_REPOSITORY:$IMAGE_TAG
+            docker-compose build $service
+            docker-compose push $service
           done
