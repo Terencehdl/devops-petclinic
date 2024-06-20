@@ -51,4 +51,5 @@ jobs:
             echo "Building and pushing image for $service"
             docker-compose build -t $service:latest
             docker-compose images
+            docker tag -f "$service:latest" 969799237091.dkr.ecr.eu-west-3.amazonaws.com/devops-petclinic:latest
           done
