@@ -23,12 +23,14 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '17'
+          distribution: 'adopt'
+          cache: maven 
 
       - name: Build with Maven
-        run: mvn clean install -P springboot
+        run: mvn --batch-mode --errors --fail-at-end --show-version clean package
 
       - name: Run Unit Tests
-        run: mvn test
+        run: mvn --batch-mode --errors --fail-at-end --show-version  test
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -41,11 +43,11 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build and push Docker images
-        run: |
-          services=("spring-petclinic-admin-server" "spring-petclinic-customers-service" "spring-petclinic-vets-service" "spring-petclinic-visits-service" "spring-petclinic-config-server" "spring-petclinic-discovery-server" "spring-petclinic-api-gateway")
-          for service in "${services[@]}"
-          do
-            docker build -t $ECR_REPOSITORY/$DOCKER_IMAGE_PREFIX/$service:${{ github.sha }} ./spring-petclinic-$service
-            docker push $ECR_REPOSITORY/$DOCKER_IMAGE_PREFIX/$service:${{ github.sha }}
-          done
+      # - name: Build and push Docker images
+      #   run: |
+      #     services=("spring-petclinic-admin-server" "spring-petclinic-customers-service" "spring-petclinic-vets-service" "spring-petclinic-visits-service" "spring-petclinic-config-server" "spring-petclinic-discovery-server" "spring-petclinic-api-gateway")
+      #     for service in "${services[@]}"
+      #     do
+      #       docker build -t $ECR_REPOSITORY/$DOCKER_IMAGE_PREFIX/$service:${{ github.sha }} ./spring-petclinic-$service
+      #       docker push $ECR_REPOSITORY/$DOCKER_IMAGE_PREFIX/$service:${{ github.sha }}
+      #     done
