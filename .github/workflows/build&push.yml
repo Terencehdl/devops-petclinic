@@ -47,4 +47,4 @@ jobs:
         run: |
             echo "Building and pushing image for $service"
             # Utilisation de docker-compose pour construire les images
-            docker-compose build spring-petclinic-admin-server
+            docker-compose build admin-server
