@@ -45,9 +45,7 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          services=("admin-server" "customers-service" "vets-service" "visits-service" "config-server" "discovery-server" "api-gateway")
-          for service in "${services[@]}"
-          do
-            docker build -t $ECR_REPOSITORY/$DOCKER_IMAGE_PREFIX/spring-petclinic-$service:$IMAGE_TAG ./spring-petclinic-$service
-            docker push $ECR_REPOSITORY/$DOCKER_IMAGE_PREFIX/spring-petclinic-$service:$IMAGE_TAG 
-          done
+          docker build -t 969799237091.dkr.ecr.eu-west-3.amazonaws.com/devops-petclinic/spring-petclinic-admin-server:tag .
+          docker push 969799237091.dkr.ecr.eu-west-3.amazonaws.com/devops-petclinic/spring-petclinic-admin-server:tag
+
+
