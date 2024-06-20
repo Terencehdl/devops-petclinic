@@ -50,6 +50,6 @@ jobs:
           do
             echo "Building and pushing image for $service"
             docker-compose build $service
+             docker images
             # docker tag $service:latest 969799237091.dkr.ecr.eu-west-3.amazonaws.com/devops-petclinic:$IMAGE_TAG
-            docker push 969799237091.dkr.ecr.eu-west-3.amazonaws.com/devops-petclinic
           done
