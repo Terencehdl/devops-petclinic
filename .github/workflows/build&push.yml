@@ -45,6 +45,14 @@ jobs:
 
       - name: Build and push Docker images
         run: |
+          services=("admin-server" "customers-service" "vets-service" "visits-service" "config-server" "discovery-server" "api-gateway")
+          for service in "${services[@]}"
+          do
             echo "Building and pushing image for $service"
-            # Utilisation de docker-compose pour construire les images
-            docker-compose build admin-server
+            # Build the Docker image for each service
+            docker-compose build $service
+            # Tag the image
+            docker tag $service:latest $ECR_REPOSITORY/$service:${{ github.sha }}
+            # Push the image to ECR
+            docker push $ECR_REPOSITORY/$service:${{ github.sha }}
+          done
