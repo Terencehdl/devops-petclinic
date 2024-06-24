@@ -46,21 +46,7 @@ jobs:
       - name: Build and push Docker images
         env:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-          IMAGE_TAG: latest 
         run: |
           docker tag discovery-server ${{ secrets.ECR_REPOSITORY }}/discovery-server
           docker push ${{ secrets.ECR_REPOSITORY }}/discovery-server
-          # services=("config-server" "discovery-server" "customers-service" "visits-service" "vets-service" "api-gateway" "admin-server" )
-          # for service in "${services[@]}"; do
-          #   if [[ $(docker-compose config | grep "image:.*$service") == "" ]]; then
-          #     # Service ne possédant pas d'image définie, on le construit et pousse
-          #     echo "Building and pushing image for $service"
-          #     docker-compose build $service
-          #     echo "Tagging image for $service"
-          #     docker-compose tag $service:latest ${{ secrets.ECR_REPOSITORY }}/$service:${IMAGE_TAG}
-          #     echo "Pushing image to ECR for $service"
-          #     docker-compose push ${{ secrets.ECR_REPOSITORY }}/$service:${IMAGE_TAG}
-          #   else
-          #     echo "Service $service uses a predefined image, skipping build"
-          #   fi
-          # done
+
