@@ -24,13 +24,13 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-          cache: maven 
+          cache: maven
 
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
+        run: ./mvnw clean install -P buildDocker
 
       - name: Run Unit Tests
-        run: mvn --batch-mode --errors --fail-at-end --show-version  test
+        run: mvn --batch-mode --errors --fail-at-end --show-version test
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -43,10 +43,15 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build and push Docker images
+      - name: Tag and Push Docker images to ECR
         env:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: latest
         run: |
-          docker tag discovery-server ${{ secrets.ECR_REPOSITORY }}/discovery-server
-          docker push ${{ secrets.ECR_REPOSITORY }}/discovery-server
+          services=("config-server" "discovery-server" "customers-service" "visits-service" "vets-service" "api-gateway" "tracing-server" "admin-server" "grafana-server" "prometheus-server")
+          for service in "${services[@]}"; do
+            echo "Tagging and pushing image for $service"
+            docker tag ${service}:latest ${{ secrets.ECR_REPOSITORY }}/${service}:${IMAGE_TAG}
+            docker push ${{ secrets.ECR_REPOSITORY }}/${service}:${IMAGE_TAG}
+          done
 
