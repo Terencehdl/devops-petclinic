@@ -48,7 +48,7 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: latest 
         run: |
-          docker tag discovery-server:latest 969799237091.dkr.ecr.eu-west-3.amazonaws.com/devops-petclinic/discovery-server:latest
+          docker-compose tag discovery-server:latest 969799237091.dkr.ecr.eu-west-3.amazonaws.com/devops-petclinic/discovery-server:latest
           docker-compose push 969799237091.dkr.ecr.eu-west-3.amazonaws.com/devops-petclinic/discovery-server:latest
           # services=("config-server" "discovery-server" "customers-service" "visits-service" "vets-service" "api-gateway" "admin-server" )
           # for service in "${services[@]}"; do
