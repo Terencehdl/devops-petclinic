@@ -54,5 +54,5 @@ jobs:
             echo "Building and pushing image for $service"
             docker-compose build $service
             echo "Pushing images to ecr"
-            docker-compose push ${{ secrets.ECR_REPOSITORY }}/$service:${IMAGE_TAG}
+            docker-compose push ${{ secrets.ECR_REPOSITORY }}
           done
