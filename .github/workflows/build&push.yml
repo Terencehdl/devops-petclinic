@@ -48,8 +48,8 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: latest 
         run: |
-          docker tag discovery-server ${{ secrets.ECR_REPOSITORY }}/discovery-server:${IMAGE_TAG}
-          docker push ${{ secrets.ECR_REPOSITORY }}/discovery-server:${IMAGE_TAG}
+          docker tag discovery-server ${{ secrets.ECR_REPOSITORY }}/discovery-server
+          docker push ${{ secrets.ECR_REPOSITORY }}/discovery-server
           # services=("config-server" "discovery-server" "customers-service" "visits-service" "vets-service" "api-gateway" "admin-server" )
           # for service in "${services[@]}"; do
           #   if [[ $(docker-compose config | grep "image:.*$service") == "" ]]; then
