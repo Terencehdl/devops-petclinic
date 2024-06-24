@@ -63,6 +63,7 @@ jobs:
               echo "Tagging and pushing image for $image"
               image_name=$(echo ${image} | awk -F '/' '{print $2}')
               docker tag ${image}:latest ${{ secrets.ECR_REPOSITORY }}/${image_name}:${IMAGE_TAG}
+              echo "pushing image for $image"
               docker push ${{ secrets.ECR_REPOSITORY }}/${image_name}:${IMAGE_TAG}
             else
               echo "No image found for $image"
