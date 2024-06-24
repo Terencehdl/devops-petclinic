@@ -51,7 +51,7 @@ jobs:
           services=("config-server" "discovery-server" "customers-service" "visits-service" "vets-service" "api-gateway" "tracing-server" "admin-server" "grafana-server" "prometheus-server")
           for service in "${services[@]}"; do
             echo "Tagging and pushing image for $service"
-            docker tag ${service}:latest ${{ secrets.ECR_REPOSITORY }}/${service}:${IMAGE_TAG}
+            # docker tag ${service}:latest ${{ secrets.ECR_REPOSITORY }}/${service}:${IMAGE_TAG}
             docker push ${{ secrets.ECR_REPOSITORY }}/${service}:${IMAGE_TAG}
           done
 
