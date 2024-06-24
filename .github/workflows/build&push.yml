@@ -49,7 +49,7 @@ jobs:
           IMAGE_TAG: latest 
         run: |
           docker tag discovery-server:latest 969799237091.dkr.ecr.eu-west-3.amazonaws.com//devops-petclinic/discovery-server:latest
-          docker push 969799237091.dkr.ecr.eu-west-3.amazonaws.com/devops-petclinic/discovery-server
+          docker push 969799237091.dkr.ecr.eu-west-3.amazonaws.com/devops-petclinic/discovery-server:latest
           # services=("config-server" "discovery-server" "customers-service" "visits-service" "vets-service" "api-gateway" "admin-server" )
           # for service in "${services[@]}"; do
           #   if [[ $(docker-compose config | grep "image:.*$service") == "" ]]; then
