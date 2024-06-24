@@ -48,7 +48,7 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: latest 
         run: |
-          services=("config-server" "discovery-server" "customers-service" "visits-service" "vets-service" "api-gateway" "tracing-server" "admin-server" "grafana-server" "prometheus-server")
+          services=("config-server" "discovery-server" "customers-service" "visits-service" "vets-service" "api-gateway" "admin-server" )
           for service in "${services[@]}"; do
             if [[ $(docker-compose config | grep "image:.*$service") == "" ]]; then
               # Service ne possédant pas d'image définie, on le construit et pousse
