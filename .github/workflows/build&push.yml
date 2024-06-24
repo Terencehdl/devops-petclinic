@@ -45,6 +45,21 @@ jobs:
 
       - name: List Docker images
         run: docker images
+        
+      - name: Create ECR repositories if they don't exist
+        run: |
+          repositories=("spring-petclinic-api-gateway" \
+                        "spring-petclinic-discovery-server" \
+                        "spring-petclinic-config-server" \
+                        "spring-petclinic-visits-service" \
+                        "spring-petclinic-vets-service" \
+                        "spring-petclinic-customers-service" \
+                        "spring-petclinic-admin-server")
+          for repo in "${repositories[@]}"; do
+            aws ecr describe-repositories --repository-names $repo || \
+            aws ecr create-repository --repository-name $repo
+          done
+
 
       - name: Tag and Push Docker images to ECR
         env:
