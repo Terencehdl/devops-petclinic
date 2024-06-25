@@ -6,6 +6,11 @@ on:
       - main
       - develop
       - feature/Gitops
+  pull_request:
+    branches:
+      - main
+      - develop
+      - feature/Gitops
 
 jobs:
   build-and-push:
