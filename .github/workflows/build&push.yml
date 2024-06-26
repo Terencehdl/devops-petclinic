@@ -80,7 +80,7 @@ jobs:
           helm upgrade --install --namespace staging petclinic ./k8s/petclinic-chart/
 
       - name : Verify Deployment in Dev
-          run : |
+        run : |
             kubectl get pods -n staging
 
       - name: Run Unit Tests on Staging environment
