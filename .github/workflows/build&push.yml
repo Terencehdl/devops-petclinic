@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - staging
       - feature/Gitops
   # pull_request:
   #   branches:
@@ -88,3 +89,6 @@ jobs:
 
       - name: Run Unit Tests on Staging environment
         run: mvn --batch-mode --errors --fail-at-end --show-version test
+
+      - name : Deploy to production environment
+        run : helm upgrade --install --namespace prod petclinic-chart ./k8s/petclinic-chart/
