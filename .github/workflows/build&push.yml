@@ -92,3 +92,7 @@ jobs:
 
       - name : Deploy to production environment
         run : helm upgrade --install --namespace prod petclinic-chart ./k8s/petclinic-chart/
+
+      - name : Verify Deployment in Dev
+        run : |
+            kubectl get pods -n prod
