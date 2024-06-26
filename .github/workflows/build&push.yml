@@ -80,7 +80,7 @@ jobs:
 
       - name : Deploy to Staging environment 
         run : |
-          helm upgrade --install --namespace staging petclinic ./k8s/petclinic-chart/
+          helm upgrade --install --namespace staging petclinic-chart ./k8s/petclinic-chart/
 
       - name : Verify Deployment in Dev
         run : |
