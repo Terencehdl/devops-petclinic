@@ -6,11 +6,11 @@ on:
       - main
       - develop
       - feature/Gitops
-  pull_request:
-    branches:
-      - main
-      - develop
-      - feature/Gitops
+  # pull_request:
+  #   branches:
+  #     - main
+  #     - develop
+  #     - feature/Gitops
 
 jobs:
   build-and-push:
@@ -74,3 +74,14 @@ jobs:
               echo "No image found for $image"
             fi
           done
+
+      - name : Deploy to Staging environment 
+        run : |
+          helm upgrade --install --namespace staging petclinic ./k8s/petclinic-chart/
+
+      - name : Verify Deployment in Dev
+          run : |
+            kubectl get pods -n staging
+
+      - name: Run Unit Tests on Staging environment
+        run: mvn --batch-mode --errors --fail-at-end --show-version test
