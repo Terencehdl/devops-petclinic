@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
         - name: discovery-server
-          image: {{ .Values.services.discoveryServer.image }}:{{ .Values.services.cdiscoveryServer.tag }}
+          image: {{ .Values.services.discoveryServer.image }}:{{ .Values.services.discoveryServer.tag }}
           imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.services.discoveryServer.containerPort }}
       imagePullSecrets:
-        - name: {{ .Values.imagePullSecrets[0].name }}
+        - name: {{ .Values.imagePullSecrets.name }}
 
 ---
 apiVersion: v1

@@ -20,7 +20,7 @@ spec:
           ports:
             - containerPort: {{ .Values.services.apiGateway.containerPort }}
       imagePullSecrets:
-        - name: {{ .Values.imagePullSecrets[0].name }}
+        - name: {{ .Values.imagePullSecrets.name }}
 
 ---
 apiVersion: v1
