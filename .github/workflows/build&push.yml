@@ -76,7 +76,7 @@ jobs:
           done
 
       - name: Update kube config
-        run: aws eks update-kubeconfig --region eu-west-3 --name petclinic-eks-cluster
+        run: aws eks update-kubeconfig --region eu-west-3 --name petclinic-cluster
 
       - name : Deploy to Staging environment 
         run : |
