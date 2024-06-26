@@ -75,6 +75,9 @@ jobs:
             fi
           done
 
+      - name: Update kube config
+        run: aws eks update-kubeconfig --region eu-west-3 --name petclinic-eks-cluster
+
       - name : Deploy to Staging environment 
         run : |
           helm upgrade --install --namespace staging petclinic ./k8s/petclinic-chart/
