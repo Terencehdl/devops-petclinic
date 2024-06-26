@@ -14,10 +14,12 @@ spec:
     spec:
       containers:
         - name: vets-service
-          image: {{ .Values.services.vetsService.image }}
+          image: {{ .Values.services.vetsService.image }}:{{ .Values.services.vetsService.tag }}
           imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.services.vetsService.containerPort }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets[0].name }}
 
 ---
 apiVersion: v1

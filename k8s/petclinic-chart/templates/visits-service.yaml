@@ -14,10 +14,12 @@ spec:
     spec:
       containers:
         - name: visits-service
-          image: {{ .Values.services.visitsService.image }}
+          image: {{ .Values.services.visitsService.image }}:{{ .Values.services.visitsService.tag }}
           imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.services.visitsService.containerPort }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets[0].name }}
 
 ---
 apiVersion: v1

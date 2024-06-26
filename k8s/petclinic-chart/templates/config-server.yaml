@@ -14,10 +14,12 @@ spec:
     spec:
       containers:
         - name: config-server
-          image: {{ .Values.services.configServer.image }}
+          image: {{ .Values.services.configServer.image }}:{{ .Values.services.configServer.tag }}
           imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.services.configServer.containerPort }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets[0].name }}
 
 ---
 apiVersion: v1

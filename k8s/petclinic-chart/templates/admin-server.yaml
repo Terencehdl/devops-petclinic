@@ -14,10 +14,12 @@ spec:
     spec:
       containers:
         - name: admin-server
-          image: {{ .Values.services.adminServer.image }}
+          image: {{ .Values.services.adminServer.image }}:{{ .Values.services.adminServer.tag }}
           imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.services.adminServer.containerPort }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets[0].name }}
 
 ---
 apiVersion: v1

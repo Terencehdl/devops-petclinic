@@ -14,10 +14,12 @@ spec:
     spec:
       containers:
         - name: customers-service
-          image: {{ .Values.services.customersService.image }}
+          image: {{ .Values.services.customersService.image }}:{{ .Values.services.customersService.tag }}
           imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.services.customersService.containerPort }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets[0].name }}
 
 ---
 apiVersion: v1
